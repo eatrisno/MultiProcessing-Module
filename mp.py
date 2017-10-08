@@ -24,17 +24,17 @@ __mgr = mp.Manager()
 __var = __mgr.dict()
 __var['process']=0
 __task_list = []
-__wait_time = 0.1
+__wait_time = 0.2
 
-def Task(function,args_arr,max_process=__max_process,wait_time=__wait_time):
+def Task(__function,__args_arr,__max_process=__max_process,__wait_time=__wait_time):
 	print('Max Processor : {0}'.format(__max_process))	
-	for args in args_arr:
+	for args in __args_arr:
 		__var['process']+=1
 		#hold if process reach max limit
 		while(__var['process'] > __max_process):
 			time.sleep(__wait_time)
 		#run process
-		p = mp.Process(target=function , args=[args])
+		p = mp.Process(target=__function , args=[args])
 		__task_list.append(p)
 		p.start()
 		#join job process
